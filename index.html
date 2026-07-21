@@ -1,670 +1,484 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-PE">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RíoTV — Tu App de Entretenimiento Premium en Perú</title>
-    <meta name="description" content="Descubre una nueva forma de disfrutar los mejores contenidos en Perú. Series, películas y mucho más en una sola app. ¡Descárgala ahora!">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='%23d4a574'/><stop offset='100%' stop-color='%23b8860b'/></linearGradient></defs><rect width='32' height='32' rx='8' fill='%23111'/><path d='M8 6 Q12 16 16 26 Q20 16 24 6' stroke='url(%23g)' stroke-width='3' fill='none' stroke-linecap='round'/><circle cx='16' cy='16' r='4' fill='url(%23g)'/></svg>">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        gold: { 400: '#d4a574', 500: '#c9a96e', 600: '#b8860b' },
-                        dark: { 900: '#0a0a0a', 800: '#111111', 700: '#1a1a2e', 600: '#16213e' },
-                        peru: { red: '#d91023', white: '#f5f5f5' }
-                    },
-                    animation: {
-                        'pulse-soft': 'pulseSoft 3s ease-in-out infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                        'shine': 'shine 3s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        pulseSoft: {
-                            '0%, 100%': { boxShadow: '0 0 20px rgba(201,169,110,0.3)' },
-                            '50%': { boxShadow: '0 0 40px rgba(201,169,110,0.6)' },
-                        },
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0px)' },
-                            '50%': { transform: 'translateY(-10px)' },
-                        },
-                        shine: {
-                            '0%, 100%': { opacity: '0.4' },
-                            '50%': { opacity: '0.8' },
-                        },
-                    }
-                }
-            }
-        }
-    </script>
+    <title>RíoTV — La App de Entretenimiento que Todo Perú Está Descargando</title>
+    <meta name="description" content="RíoTV es la app de entretenimiento preferida por los peruanos. Encuentra qué ver, crea tu lista, y disfruta en cualquier dispositivo. Disponible en Google Play.">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-        * { font-family: 'Inter', system-ui, sans-serif; }
-        html { scroll-behavior: smooth; }
-        body { background: #0a0a0a; }
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        html{scroll-behavior:smooth;font-size:16px}
+        body{background:#0a0a0a;color:#d1d1d1;font-family:'Inter',system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+        img,svg{display:block;max-width:100%}
+        a{color:inherit;text-decoration:none}
 
-        /* ── Hero: pure CSS gradient, no external image ── */
-        .hero-bg {
-            background:
-                radial-gradient(ellipse 80% 60% at 50% 30%, rgba(201,169,110,0.08) 0%, transparent 60%),
-                radial-gradient(ellipse 60% 50% at 20% 70%, rgba(100,60,160,0.12) 0%, transparent 50%),
-                radial-gradient(ellipse 50% 40% at 80% 60%, rgba(180,100,60,0.10) 0%, transparent 50%),
-                linear-gradient(180deg, #0d0d1a 0%, #111122 30%, #0a0a0f 70%, #0a0a0a 100%);
-            position: relative;
+        /* ── Colors ── */
+        :root{--gold:#d4a574;--gold2:#c9a96e;--gold3:#b8860b;--bg:#0a0a0a;--bg2:#111;--bg3:#1a1a2e;--white:#fff;--gray:#999;--gray2:#666;--border:rgba(255,255,255,.06)}
+
+        /* ── Utils ── */
+        .container{max-width:1200px;margin:0 auto;padding:0 24px}
+        .container-sm{max-width:900px;margin:0 auto;padding:0 24px}
+        .container-xs{max-width:700px;margin:0 auto;padding:0 24px}
+        .text-center{text-align:center}
+        .flex{display:flex}.flex-col{flex-direction:column}.items-center{align-items:center}.justify-center{justify-content:center}.gap-2{gap:8px}.gap-3{gap:12px}.gap-4{gap:16px}.gap-6{gap:24px}.gap-8{gap:32px}.flex-wrap{flex-wrap:wrap}
+        .grid{display:grid}.grid-2{grid-template-columns:repeat(2,1fr)}.grid-3{grid-template-columns:repeat(3,1fr)}.grid-4{grid-template-columns:repeat(4,1fr)}.grid-6{grid-template-columns:repeat(6,1fr)}
+
+        /* ── Typography ── */
+        .text-gold{color:var(--gold)}.text-white{color:var(--white)}.text-gray{color:var(--gray)}.text-gray2{color:var(--gray2)}
+        .text-xs{font-size:.75rem}.text-sm{font-size:.875rem}.text-base{font-size:1rem}.text-lg{font-size:1.125rem}.text-xl{font-size:1.25rem}.text-2xl{font-size:1.5rem}.text-3xl{font-size:2rem}.text-4xl{font-size:2.5rem}.text-5xl{font-size:3rem}
+        .font-semibold{font-weight:600}.font-bold{font-weight:700}.font-extrabold{font-weight:800}.font-black{font-weight:900}
+        .leading-tight{line-height:1.15}.leading-relaxed{line-height:1.7}
+        .uppercase{text-transform:uppercase;letter-spacing:.12em}
+
+        /* ── Nav ── */
+        .nav{position:fixed;top:0;left:0;right:0;z-index:40;background:rgba(10,10,10,.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+        .nav-inner{display:flex;align-items:center;justify-content:space-between;height:60px}
+        .nav-logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.1rem;color:var(--white)}
+        .nav-logo svg{width:34px;height:34px}
+        .nav-links{display:flex;gap:28px;font-size:.875rem;color:var(--gray)}
+        .nav-links a{transition:color .2s}.nav-links a:hover{color:var(--gold)}
+
+        /* ── Buttons ── */
+        .btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;border-radius:12px;cursor:pointer;transition:all .25s;border:none;font-size:1rem;font-family:inherit}
+        .btn-gold{background:linear-gradient(135deg,var(--gold2),var(--gold),var(--gold3));color:#000;box-shadow:0 4px 24px rgba(201,169,110,.35);animation:pulse 3s ease-in-out infinite}
+        .btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 36px rgba(201,169,110,.5)}
+        .btn-outline{border:1px solid rgba(255,255,255,.2);color:#ccc;background:transparent}
+        .btn-outline:hover{border-color:rgba(201,169,110,.5);color:var(--gold)}
+        .btn-white{background:var(--white);color:#000;font-weight:700}
+        .btn-white:hover{background:#e0e0e0;box-shadow:0 8px 30px rgba(255,255,255,.1)}
+        .btn-sm{padding:8px 20px;font-size:.85rem;border-radius:999px}
+        .btn-md{padding:14px 32px}
+        .btn-lg{padding:16px 40px;font-size:1.1rem;border-radius:16px}
+        @keyframes pulse{0%,100%{box-shadow:0 4px 20px rgba(201,169,110,.3)}50%{box-shadow:0 4px 36px rgba(201,169,110,.55)}}
+
+        /* ── Hero ── */
+        .hero{min-height:100vh;display:flex;align-items:center;padding-top:80px;position:relative;overflow:hidden;
+            background:radial-gradient(ellipse 70% 50% at 50% 30%,rgba(201,169,110,.07) 0%,transparent 60%),
+                       radial-gradient(ellipse 50% 40% at 20% 70%,rgba(100,60,160,.1) 0%,transparent 50%),
+                       radial-gradient(ellipse 50% 40% at 80% 60%,rgba(180,100,60,.08) 0%,transparent 50%),
+                       linear-gradient(180deg,#0d0d1a 0%,#111122 30%,#0a0a0f 70%,var(--bg) 100%)}
+        .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(201,169,110,.08);border:1px solid rgba(201,169,110,.2);border-radius:999px;padding:6px 18px;font-size:.85rem;color:var(--gold);margin-bottom:28px;animation:float 6s ease-in-out infinite}
+        .hero h1{font-size:3rem;font-weight:900;line-height:1.1;color:var(--white);margin-bottom:20px}
+        .hero h1 span{background:linear-gradient(135deg,var(--gold),#f0d080,var(--gold3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .hero p{font-size:1.15rem;color:var(--gray);max-width:560px;margin-bottom:36px;line-height:1.7}
+        .hero-stats{display:flex;gap:40px;margin-top:48px;padding-top:36px;border-top:1px solid rgba(255,255,255,.06)}
+        .hero-stat h3{font-size:1.8rem;font-weight:800;color:var(--gold)}.hero-stat span{font-size:.8rem;color:var(--gray2)}
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+        /* ── Sections ── */
+        section{padding:80px 0}
+        .section-tag{font-size:.8rem;font-weight:600;color:var(--gold);text-transform:uppercase;letter-spacing:.15em;margin-bottom:12px;display:block}
+        .section-title{font-size:2.5rem;font-weight:800;color:var(--white);margin-bottom:16px;line-height:1.2}
+        .section-desc{font-size:1.1rem;color:var(--gray);max-width:600px;margin:0 auto 16px}
+        .divider{height:3px;width:100px;background:repeating-linear-gradient(90deg,var(--gold) 0 8px,transparent 8px 12px,var(--gold) 12px 16px,transparent 16px 20px);opacity:.4;margin:24px auto 0}
+
+        /* ── Cards ── */
+        .card{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05);border-radius:16px;overflow:hidden;transition:all .4s cubic-bezier(.25,.8,.25,1.2);cursor:pointer}
+        .card:hover{transform:translateY(-6px);border-color:rgba(201,169,110,.25);box-shadow:0 16px 48px rgba(201,169,110,.1)}
+        .card-poster{aspect-ratio:2/3;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+        .card-poster-inner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:transform .5s cubic-bezier(.25,.8,.25,1.2)}
+        .card:hover .card-poster-inner{transform:scale(1.06)}
+        .card-poster svg{width:56px;height:56px;filter:drop-shadow(0 4px 16px rgba(0,0,0,.5));transition:transform .3s}
+        .card:hover .card-poster svg{transform:scale(1.1)}
+        .card-body{padding:12px 14px 14px}
+        .card-body h4{font-size:.9rem;font-weight:600;color:var(--white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .card-body span{font-size:.75rem;color:var(--gray2)}
+        .card-badge{position:absolute;top:10px;right:10px;background:linear-gradient(135deg,var(--gold2),var(--gold3));color:#000;font-weight:700;font-size:.68rem;padding:3px 8px;border-radius:4px;z-index:2}
+        .card-btn{position:absolute;bottom:0;left:0;right:0;padding:10px;z-index:2;opacity:0;transform:translateY(8px);transition:all .3s}
+        .card:hover .card-btn{opacity:1;transform:translateY(0)}
+        .card-btn button{width:100%;padding:9px;border-radius:8px;background:rgba(201,169,110,.9);color:#000;font-weight:700;font-size:.75rem;border:none;cursor:pointer;transition:background .2s}
+        .card-btn button:hover{background:var(--gold)}
+        .poster-overlay{position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 0%,transparent 40%);pointer-events:none;z-index:1}
+
+        /* ── Feature Cards ── */
+        .feat-card{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05);border-radius:20px;padding:32px 28px;text-align:center;transition:all .35s}
+        .feat-card:hover{border-color:rgba(201,169,110,.2);box-shadow:0 12px 40px rgba(201,169,110,.08)}
+        .feat-icon{width:60px;height:60px;margin:0 auto 20px;border-radius:16px;display:flex;align-items:center;justify-content:center;transition:transform .3s}
+        .feat-card:hover .feat-icon{transform:scale(1.1)}
+        .feat-card h4{font-size:1.05rem;font-weight:700;color:var(--white);margin-bottom:8px}
+        .feat-card p{font-size:.875rem;color:var(--gray);line-height:1.6}
+
+        /* ── Testimonials ── */
+        .test-card{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05);border-radius:16px;padding:24px}
+        .test-stars{color:var(--gold);margin-bottom:12px;font-size:.9rem;letter-spacing:2px}
+        .test-card p{font-size:.875rem;color:#c0c0c0;line-height:1.65;margin-bottom:16px}
+        .test-author{display:flex;align-items:center;gap:12px;padding-top:14px;border-top:1px solid rgba(255,255,255,.05)}
+        .test-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;color:var(--white)}
+        .test-author h5{font-size:.85rem;color:var(--white)}.test-author span{font-size:.72rem;color:var(--gray2)}
+
+        /* ── FAQ ── */
+        .faq-item{border:1px solid rgba(255,255,255,.06);border-radius:14px;overflow:hidden;transition:border-color .3s}
+        .faq-item:hover{border-color:rgba(201,169,110,.2)}
+        .faq-item summary{padding:18px 22px;font-weight:600;color:var(--white);cursor:pointer;display:flex;justify-content:space-between;align-items:center;list-style:none;font-size:.95rem}
+        .faq-item summary::after{content:'▾';color:var(--gold);font-size:1.1rem;transition:transform .3s}
+        .faq-item[open] summary::after{transform:rotate(180deg)}
+        .faq-item .faq-answer{padding:0 22px 18px;font-size:.875rem;color:var(--gray);line-height:1.65}
+
+        /* ── CTA Section ── */
+        .cta-section{position:relative;overflow:hidden;padding:80px 0;
+            background:linear-gradient(135deg,var(--bg3),#0d0d25,var(--bg))}
+        .cta-section::before{content:'';position:absolute;top:-100px;right:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(201,169,110,.06) 0%,transparent 70%)}
+        .cta-section::after{content:'';position:absolute;bottom:-100px;left:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(130,80,200,.05) 0%,transparent 70%)}
+        .cta-box{position:relative;z-index:1;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:24px;padding:56px 40px;text-align:center;backdrop-filter:blur(10px)}
+
+        /* ── Footer ── */
+        footer{padding:56px 0 32px;border-top:1px solid rgba(255,255,255,.05)}
+        .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+        .footer-disclaimer{text-align:center;padding-top:28px;border-top:1px solid rgba(255,255,255,.04);font-size:.7rem;color:var(--gray2);line-height:1.7}
+
+        /* ── Modal ── */
+        .modal{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:16px}
+        .modal.hidden{display:none}
+        .modal-bg{position:absolute;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(6px)}
+        .modal-box{position:relative;z-index:1;background:rgba(20,20,30,.95);border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:32px 28px;max-width:420px;width:100%;text-align:center;backdrop-filter:blur(20px)}
+        .modal-close{position:absolute;top:14px;right:14px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:none;border:none;color:var(--gray);cursor:pointer;font-size:1.2rem;border-radius:50%;transition:all .2s}
+        .modal-close:hover{color:var(--white);background:rgba(255,255,255,.05)}
+
+        /* ── Floating CTA (mobile) ── */
+        .float-btn{position:fixed;bottom:20px;right:20px;z-index:40;display:none}
+
+        /* ── Filter buttons ── */
+        .filter-btn{padding:8px 20px;border-radius:999px;font-size:.85rem;font-weight:500;cursor:pointer;transition:all .25s;background:transparent;color:var(--gray);border:1px solid rgba(255,255,255,.1);font-family:inherit}
+        .filter-btn.active,.filter-btn:hover{background:var(--gold);color:#000;border-color:var(--gold)}
+
+        /* ── Responsive ── */
+        @media(max-width:1024px){
+            .footer-grid{grid-template-columns:1fr 1fr}
+            .hero h1{font-size:2.3rem}
+            .section-title{font-size:2rem}
         }
-        /* Machu Picchu geometric silhouette in CSS */
-        .hero-bg::before {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            height: 200px;
-            background:
-                /* mountain peaks */
-                linear-gradient(175deg, transparent 48%, rgba(201,169,110,0.06) 48%, rgba(201,169,110,0.06) 52%, transparent 52%) 10% 0 / 20% 100%,
-                linear-gradient(172deg, transparent 44%, rgba(201,169,110,0.08) 44%, rgba(201,169,110,0.08) 50%, transparent 50%) 30% 0 / 25% 100%,
-                linear-gradient(178deg, transparent 42%, rgba(201,169,110,0.07) 42%, rgba(201,169,110,0.07) 48%, transparent 48%) 50% 0 / 30% 100%,
-                linear-gradient(170deg, transparent 46%, rgba(201,169,110,0.05) 46%, rgba(201,169,110,0.05) 51%, transparent 51%) 70% 0 / 22% 100%,
-                linear-gradient(176deg, transparent 40%, rgba(201,169,110,0.06) 40%, rgba(201,169,110,0.06) 49%, transparent 49%) 85% 0 / 18% 100%;
-            background-repeat: no-repeat;
-            pointer-events: none;
-            z-index: 1;
+        @media(max-width:768px){
+            .nav-links{display:none}
+            .hero h1{font-size:1.9rem}
+            .hero p{font-size:1rem}
+            .section-title{font-size:1.7rem}
+            .hero-stats{gap:24px;flex-wrap:wrap}
+            .hero-stat h3{font-size:1.5rem}
+            .grid-4,.grid-6{grid-template-columns:repeat(3,1fr)}
+            .grid-3{grid-template-columns:1fr}
+            .footer-grid{grid-template-columns:1fr}
+            .float-btn{display:block}
+            section{padding:56px 0}
+            .cta-box{padding:40px 24px}
         }
-
-        /* ── Card glass effect ── */
-        .card-glass {
-            background: rgba(255,255,255,0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.06);
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1.2);
-        }
-        .card-glass:hover {
-            transform: translateY(-8px) scale(1.02);
-            border-color: rgba(201,169,110,0.3);
-            box-shadow: 0 20px 60px rgba(201,169,110,0.12), 0 0 0 1px rgba(201,169,110,0.15) inset;
-        }
-
-        /* ── CSS-only poster gradients ── */
-        .poster-grad {
-            position: absolute; inset: 0;
-            display: flex; align-items: center; justify-content: center;
-            transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1.2);
-        }
-        .card-glass:hover .poster-grad { transform: scale(1.08); }
-        .poster-icon-wrap { transition: transform 0.4s ease; }
-        .card-glass:hover .poster-icon-wrap { transform: scale(1.12); }
-
-        /* ── CTA button ── */
-        .btn-cta {
-            background: linear-gradient(135deg, #c9a96e 0%, #d4a574 50%, #b8860b 100%);
-            color: #000;
-            font-weight: 700;
-            letter-spacing: 0.02em;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 24px rgba(201,169,110,0.35);
-            animation: pulseSoft 3s ease-in-out infinite;
-        }
-        .btn-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 40px rgba(201,169,110,0.55);
-        }
-
-        .float-cta { position: fixed; bottom: 24px; right: 24px; z-index: 50; }
-
-        .rating-badge {
-            background: linear-gradient(135deg, #c9a96e, #b8860b);
-            color: #000;
-            font-weight: 700;
-            font-size: 0.7rem;
-            padding: 3px 8px;
-            border-radius: 4px;
-        }
-
-        .modal-overlay { background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); }
-
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #0a0a0a; }
-        ::-webkit-scrollbar-thumb { background: #2a2a3a; border-radius: 3px; }
-
-        .inca-divider {
-            height: 4px;
-            background: repeating-linear-gradient(90deg,
-                #c9a96e 0px, #c9a96e 8px,
-                transparent 8px, transparent 12px,
-                #c9a96e 12px, #c9a96e 16px,
-                transparent 16px, transparent 20px);
-            opacity: 0.4;
-        }
-
-        @media (max-width: 768px) {
-            .float-cta { bottom: 16px; right: 16px; }
+        @media(max-width:480px){
+            .container,.container-sm,.container-xs{padding:0 16px}
+            .hero h1{font-size:1.65rem}
+            .section-title{font-size:1.5rem}
+            .grid-4,.grid-6{grid-template-columns:repeat(2,1fr)}
+            .hero-stats{gap:16px}
         }
     </style>
 </head>
-<body class="text-gray-200 antialiased">
+<body>
 
-<!-- ====== NAV ====== -->
-<nav class="fixed top-0 left-0 right-0 z-40 bg-dark-900/80 backdrop-blur-xl border-b border-white/5">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-16">
-            <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center text-black font-extrabold text-xs">
-                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M4 3 Q12 16 20 3"/><circle cx="12" cy="13" r="3" fill="currentColor" stroke="none"/></svg>
-                </div>
-                <span class="text-lg font-bold tracking-tight hidden sm:block">
-                    Río<span class="text-gold-400">TV</span>
-                </span>
-            </div>
-            <div class="hidden md:flex items-center gap-8 text-sm">
-                <a href="#catalogo" class="text-gray-400 hover:text-gold-400 transition-colors">Catálogo</a>
-                <a href="#ventajas" class="text-gray-400 hover:text-gold-400 transition-colors">Ventajas</a>
-                <a href="#testimonios" class="text-gray-400 hover:text-gold-400 transition-colors">Opiniones</a>
-            </div>
-            <a href="#descargar" class="btn-cta text-sm px-5 py-2.5 rounded-full inline-flex items-center gap-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/></svg>
-                Descargar App
-            </a>
+<!-- ═══ NAV ═══ -->
+<nav class="nav">
+    <div class="container nav-inner">
+        <a href="#" class="nav-logo">
+            <svg viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="10" fill="url(#g)"/><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#d4a574"/><stop offset="100%" stop-color="#b8860b"/></linearGradient></defs><path d="M6 5 Q14 18 22 5" stroke="#000" stroke-width="2.8" fill="none" stroke-linecap="round"/><circle cx="14" cy="16" r="4" fill="#000"/></svg>
+            Río<span style="color:var(--gold)">TV</span>
+        </a>
+        <div class="nav-links">
+            <a href="#catalogo">Catálogo</a>
+            <a href="#ventajas">Ventajas</a>
+            <a href="#testimonios">Opiniones</a>
         </div>
+        <a href="#descargar" class="btn btn-gold btn-sm">Descargar App</a>
     </div>
 </nav>
 
-<!-- ====== HERO ====== -->
-<section class="hero-bg min-h-screen flex items-center justify-center pt-16">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center relative z-10 py-20">
-        <!-- Badge -->
-        <div class="inline-flex items-center gap-2 bg-gold-400/10 border border-gold-400/20 rounded-full px-4 py-2 mb-8 animate-float">
-            <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-            <span class="text-gold-400 text-sm font-medium">🇵🇪 La app de entretenimiento preferida en Perú</span>
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+    <div class="container text-center" style="position:relative;z-index:2">
+        <div class="hero-badge">
+            <span style="width:8px;height:8px;border-radius:50%;background:#4f4;animation:pulse 2s infinite"></span>
+            🇵🇪 La app que todo Perú está descargando
         </div>
-
-        <!-- Headline — softened, no "GRATIS" screaming -->
-        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-6">
-            <span class="text-white">El mejor entretenimiento</span><br>
-            <span class="bg-gradient-to-r from-gold-400 via-yellow-300 to-gold-500 bg-clip-text text-transparent">en una sola app</span>
-        </h1>
-
-        <!-- Subtitle — no platform names -->
-        <p class="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-            Disfruta de un catálogo inmenso de series, películas y estrenos.<br class="hidden sm:block">
-            <strong class="text-white">Sin suscripciones. Sin anuncios. Cuando quieras.</strong>
-        </p>
-
-        <!-- CTA Buttons -->
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-            <a href="#descargar" class="btn-cta text-lg px-10 py-4 rounded-xl inline-flex items-center gap-3">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/></svg>
-                Descargar la App
-            </a>
-            <a href="#catalogo" class="text-lg px-10 py-4 rounded-xl border border-white/20 hover:border-gold-400/50 transition-all duration-300 inline-flex items-center gap-2 text-gray-300 hover:text-gold-400">
-                Explorar Catálogo
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </a>
+        <h1>El entretenimiento<br>que buscas, <span>en un solo lugar</span></h1>
+        <p style="margin:0 auto 36px">RíoTV te ayuda a descubrir qué ver entre miles de opciones. Series, pelis, estrenos, todo organizado y listo para tu maratón. Sin vueltas, sin letra chica.</p>
+        <div class="flex items-center justify-center gap-3 flex-wrap">
+            <a href="#descargar" class="btn btn-gold btn-lg">📲 Descargar RíoTV</a>
+            <a href="#catalogo" class="btn btn-outline btn-lg">Explorar Catálogo</a>
         </div>
-
-        <!-- Platform badges -->
-        <div class="flex items-center justify-center gap-6 text-sm text-gray-500">
-            <div class="flex items-center gap-2">
-                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.807 1.626a1 1 0 010 1.732l-2.807 1.626L15.206 12l2.492-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
-                <span>Google Play</span>
-            </div>
-            <div class="flex items-center gap-2">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M6 7h12M6 11h12M6 15h8" stroke="white" stroke-width="1.5" fill="none"/></svg>
-                <span>Smart TV</span>
-            </div>
-            <div class="flex items-center gap-2">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="2" width="18" height="20" rx="3" stroke-width="1.5"/><path d="M10 18h4" stroke-width="1.5" stroke-linecap="round"/></svg>
-                <span>Tablet</span>
-            </div>
-        </div>
-
-        <!-- Stats -->
-        <div class="flex flex-wrap items-center justify-center gap-8 sm:gap-12 mt-12 pt-8 border-t border-white/5">
-            <div class="text-center"><div class="text-2xl sm:text-3xl font-bold text-gold-400">+500K</div><div class="text-sm text-gray-500">usuarios en Perú</div></div>
-            <div class="text-center"><div class="text-2xl sm:text-3xl font-bold text-gold-400">+2,000</div><div class="text-sm text-gray-500">títulos disponibles</div></div>
-            <div class="text-center"><div class="text-2xl sm:text-3xl font-bold text-gold-400">4.8 ★</div><div class="text-sm text-gray-500">calificación</div></div>
+        <div class="hero-stats justify-center">
+            <div class="hero-stat"><h3>+500K</h3><span>peruanos la usan</span></div>
+            <div class="hero-stat"><h3>4.8 ★</h3><span>en Google Play</span></div>
+            <div class="hero-stat"><h3>+2,000</h3><span>contenidos</span></div>
         </div>
     </div>
 </section>
 
-<!-- ====== CATÁLOGO — CSS gradient posters, genre-based ─===== -->
-<section id="catalogo" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-    <div class="text-center mb-16">
-        <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase">Catálogo Exclusivo</span>
-        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3 mb-4">
-            Todo lo que quieres ver, en <span class="text-gold-400">un solo lugar</span>
-        </h2>
-        <p class="text-gray-400 text-lg max-w-2xl mx-auto">
-            Acción, drama, comedias, thrillers, contenido latino y mucho más. Explora las categorías más populares y encuentra tu próximo maratón.
-        </p>
-        <div class="inca-divider w-32 mx-auto mt-8"></div>
+<!-- ═══ CATÁLOGO ═══ -->
+<section id="catalogo">
+    <div class="container text-center">
+        <span class="section-tag">Catálogo Exclusivo</span>
+        <h2 class="section-title">Encuentra <span class="text-gold">qué ver</span> en segundos</h2>
+        <p class="section-desc">Acción, drama, comedias, thrillers, contenido local y mucho más. Todo organizado para que no pierdas tiempo buscando.</p>
+        <div class="divider"></div>
     </div>
-
-    <!-- Filter tabs -->
-    <div class="flex flex-wrap items-center justify-center gap-3 mb-12">
-        <button onclick="filterCards('all')" class="filter-btn active px-5 py-2 rounded-full text-sm font-medium bg-gold-400 text-black" data-filter="all">Todos</button>
-        <button onclick="filterCards('serie')" class="filter-btn px-5 py-2 rounded-full text-sm font-medium border border-white/10 text-gray-400 hover:border-gold-400/40 hover:text-gold-400 transition-all" data-filter="serie">📺 Series</button>
-        <button onclick="filterCards('pelicula')" class="filter-btn px-5 py-2 rounded-full text-sm font-medium border border-white/10 text-gray-400 hover:border-gold-400/40 hover:text-gold-400 transition-all" data-filter="pelicula">🎬 Películas</button>
-        <button onclick="filterCards('latino')" class="filter-btn px-5 py-2 rounded-full text-sm font-medium border border-white/10 text-gray-400 hover:border-gold-400/40 hover:text-gold-400 transition-all" data-filter="latino">🌎 Contenido Local</button>
-    </div>
-
-    <!-- Genre card grid -->
-    <div id="movieGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-5">
+    <div class="container" style="margin-top:40px">
+        <div class="flex items-center justify-center gap-2 flex-wrap" style="margin-bottom:36px">
+            <button class="filter-btn active" onclick="filter('all')">Todos</button>
+            <button class="filter-btn" onclick="filter('serie')">📺 Series</button>
+            <button class="filter-btn" onclick="filter('pelicula')">🎬 Películas</button>
+            <button class="filter-btn" onclick="filter('latino')">🇵🇪 Perú</button>
+        </div>
+        <div id="grid" class="grid grid-2 grid-4 grid-6" style="gap:16px"></div>
     </div>
 </section>
 
-<!-- ====== VENTAJAS ─===== -->
-<section id="ventajas" class="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-b from-dark-800/50 to-dark-900/50"></div>
-    <div class="absolute inset-0 opacity-[0.02]" style="background: repeating-linear-gradient(0deg, #d91023 0px, #d91023 2px, transparent 2px, transparent 8px, #ffffff 2px, #ffffff 4px, transparent 4px, transparent 8px);"></div>
-
-    <div class="max-w-6xl mx-auto relative z-10">
-        <div class="text-center mb-16">
-            <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase">¿Por Qué Elegirnos?</span>
-            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3 mb-4">
-                Una experiencia <span class="text-gold-400">pensada para ti</span>
-            </h2>
-            <p class="text-gray-400 text-lg max-w-2xl mx-auto">
-                Todo lo que necesitas para disfrutar del mejor entretenimiento, en una app rápida, moderna y fácil de usar.
-            </p>
+<!-- ═══ VENTAJAS ═══ -->
+<section id="ventajas" style="background:rgba(255,255,255,.01)">
+    <div class="container text-center">
+        <span class="section-tag">¿Por Qué RíoTV?</span>
+        <h2 class="section-title">Pensado <span class="text-gold">para ti</span></h2>
+        <p class="section-desc">Una app rápida, fácil de usar y que funciona en cualquier dispositivo que tengas en casa.</p>
+    </div>
+    <div class="container grid grid-3" style="margin-top:40px;gap:20px">
+        <div class="feat-card">
+            <div class="feat-icon" style="background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.15)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+            <h4>Calidad HD y 4K</h4>
+            <p>Imagen nítida y sonido de cine en tu celular, tablet o Smart TV. Se ve bacán en cualquier pantalla.</p>
         </div>
-
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="card-glass rounded-2xl p-6 sm:p-8 text-center group">
-                <div class="w-16 h-16 mx-auto mb-5 rounded-2xl bg-gradient-to-br from-blue-500/20 to-blue-600/10 border border-blue-500/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                </div>
-                <h3 class="text-lg font-bold text-white mb-2">Calidad Full HD y 4K</h3>
-                <p class="text-gray-400 text-sm leading-relaxed">Disfruta cada detalle con la mejor resolución disponible. Imagen nítida y sonido envolvente para una experiencia cinematográfica.</p>
-            </div>
-            <div class="card-glass rounded-2xl p-6 sm:p-8 text-center group">
-                <div class="w-16 h-16 mx-auto mb-5 rounded-2xl bg-gradient-to-br from-green-500/20 to-green-600/10 border border-green-500/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/></svg>
-                </div>
-                <h3 class="text-lg font-bold text-white mb-2">Modo Sin Conexión</h3>
-                <p class="text-gray-400 text-sm leading-relaxed">Descarga tus contenidos favoritos para verlos sin internet. Perfecto para viajes o cuando no tengas datos móviles.</p>
-            </div>
-            <div class="card-glass rounded-2xl p-6 sm:p-8 text-center group">
-                <div class="w-16 h-16 mx-auto mb-5 rounded-2xl bg-gradient-to-br from-purple-500/20 to-purple-600/10 border border-purple-500/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" stroke-width="1.5"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 21h8M12 17v4"/></svg>
-                </div>
-                <h3 class="text-lg font-bold text-white mb-2">Todos tus Dispositivos</h3>
-                <p class="text-gray-400 text-sm leading-relaxed">Celular, tablet, laptop o Smart TV. Una cuenta para todas tus pantallas. Cambia de dispositivo y continúa justo donde lo dejaste.</p>
-            </div>
-            <div class="card-glass rounded-2xl p-6 sm:p-8 text-center group">
-                <div class="w-16 h-16 mx-auto mb-5 rounded-2xl bg-gradient-to-br from-red-500/20 to-red-600/10 border border-red-500/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <svg class="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="1.5"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v6l4 2"/></svg>
-                </div>
-                <h3 class="text-lg font-bold text-white mb-2">Actualización Constante</h3>
-                <p class="text-gray-400 text-sm leading-relaxed">Nuevos títulos cada semana. Siempre hay algo fresco que descubrir. Nuestro equipo actualiza el catálogo permanentemente.</p>
-            </div>
-            <div class="card-glass rounded-2xl p-6 sm:p-8 text-center group">
-                <div class="w-16 h-16 mx-auto mb-5 rounded-2xl bg-gradient-to-br from-yellow-500/20 to-yellow-600/10 border border-yellow-500/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <svg class="w-8 h-8 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4"/></svg>
-                </div>
-                <h3 class="text-lg font-bold text-white mb-2">Experiencia Sin Cortes</h3>
-                <p class="text-gray-400 text-sm leading-relaxed">Nada interrumpe tu diversión. Disfruta temporadas completas de un tirón. Solo tú, tu pantalla y el contenido que amas.</p>
-            </div>
-            <div class="card-glass rounded-2xl p-6 sm:p-8 text-center group">
-                <div class="w-16 h-16 mx-auto mb-5 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-cyan-600/10 border border-cyan-500/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <svg class="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                </div>
-                <h3 class="text-lg font-bold text-white mb-2">Español Latino y Subtítulos</h3>
-                <p class="text-gray-400 text-sm leading-relaxed">Doblaje en español latino y subtítulos en varios idiomas. Elige cómo prefieres disfrutar cada título.</p>
-            </div>
+        <div class="feat-card">
+            <div class="feat-icon" style="background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.15)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="1.5"><path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/></svg></div>
+            <h4>Modo Sin Internet</h4>
+            <p>Descarga lo que quieras y llévalo a todos lados. Ideal para el bus, el metro o cuando no hay datos.</p>
+        </div>
+        <div class="feat-card">
+            <div class="feat-icon" style="background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.15)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+            <h4>Siempre Actualizado</h4>
+            <p>Cada semana hay cosas nuevas. Apenas sale algo, ya está en RíoTV. No te quedas fuera de la conversa.</p>
+        </div>
+        <div class="feat-card">
+            <div class="feat-icon" style="background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.15)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="1.5"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M9 12l2 2 4-4"/></svg></div>
+            <h4>Sin Interrupciones</h4>
+            <p>Directo a lo que importa: tu contenido. Sin anuncios molestos ni pausas. Puro disfrute de principio a fin.</p>
+        </div>
+        <div class="feat-card">
+            <div class="feat-icon" style="background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.15)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><circle cx="12" cy="17" r="2"/></svg></div>
+            <h4>Para Todos tus Equipos</h4>
+            <p>Celular, tablet, laptop, Smart TV. Una sola cuenta y todo sincronizado. Empiezas en el tele y sigues en el celu.</p>
+        </div>
+        <div class="feat-card">
+            <div class="feat-icon" style="background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.15)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.5"><path d="M3 5h18M3 12h18M3 19h12"/></svg></div>
+            <h4>Español Latino y Más</h4>
+            <p>Todo en español latino, como nos gusta. También con subtítulos si quieres ver en idioma original.</p>
         </div>
     </div>
 </section>
 
-<!-- ====== CTA MID ─===== -->
-<section class="py-16 px-4 sm:px-6">
-    <div class="max-w-4xl mx-auto card-glass rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden">
-        <div class="absolute bottom-0 left-0 right-0 h-24 opacity-10 pointer-events-none">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="w-full h-full"><path fill="#c9a96e" d="M0,120 L0,80 Q150,20 300,70 Q450,110 600,50 Q750,10 900,60 Q1050,100 1200,40 L1200,120 Z"/></svg>
+<!-- ═══ CTA MID ═══ -->
+<div class="cta-section">
+    <div class="container-xs">
+        <div class="cta-box">
+            <span style="display:inline-block;background:rgba(201,169,110,.1);color:var(--gold);padding:6px 16px;border-radius:999px;font-size:.8rem;font-weight:600;margin-bottom:16px">🇵🇪 Hecho para peruanos</span>
+            <h2 style="font-size:2rem;font-weight:800;color:var(--white);margin-bottom:12px">¿Listo para encontrar tu próxima serie favorita?</h2>
+            <p style="color:var(--gray);margin-bottom:28px;font-size:1rem">Más de medio millón de peruanos ya descubrieron lo fácil que es con RíoTV. Súmate hoy.</p>
+            <a href="#descargar" class="btn btn-gold btn-lg">📲 Descargar RíoTV</a>
         </div>
-        <div class="relative z-10">
-            <span class="inline-block bg-gold-400/10 text-gold-400 px-4 py-1.5 rounded-full text-sm font-semibold mb-4">🇵🇪 Hecho para Perú</span>
-            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
-                ¿Listo para descubrir tu próximo maratón?
-            </h2>
-            <p class="text-gray-400 text-lg max-w-xl mx-auto mb-8">
-                Más de 500 mil peruanos ya disfrutan del mejor contenido. Únete hoy y empieza a explorar.
-            </p>
-            <a href="#descargar" class="btn-cta inline-flex items-center gap-3 px-10 py-4 rounded-xl text-lg">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/></svg>
-                Descargar la App
-            </a>
+    </div>
+</div>
+
+<!-- ═══ TESTIMONIOS ═══ -->
+<section id="testimonios">
+    <div class="container text-center">
+        <span class="section-tag">Lo Que Dice La Gente</span>
+        <h2 class="section-title">Peruanos como tú <span class="text-gold">la recomiendan</span></h2>
+    </div>
+    <div class="container grid grid-3" style="margin-top:40px;gap:20px">
+        <div class="test-card">
+            <div class="test-stars">★★★★★</div>
+            <p>"Al inicio pensé 'esto está muy paja para ser verdad', pero llevo meses usándola y es un golazo. Encontré series que ni sabía que existían. Mis causas del trabajo también la bajan."</p>
+            <div class="test-author"><div class="test-avatar" style="background:linear-gradient(135deg,var(--gold),#c94)">C</div><div><h5>Carlos M.</h5><span>Lima</span></div></div>
+        </div>
+        <div class="test-card">
+            <div class="test-stars">★★★★★</div>
+            <p>"La uso todos los días en el Metropolitano. Descargo capítulos en la noche y los veo camino a la chamba. La calidad es otra cosa, se ve chevere en mi celular. ¡Recomendada!"</p>
+            <div class="test-author"><div class="test-avatar" style="background:linear-gradient(135deg,#a78bfa,#7c3aed)">M</div><div><h5>María P.</h5><span>Trujillo</span></div></div>
+        </div>
+        <div class="test-card">
+            <div class="test-stars">★★★★★</div>
+            <p>"La instalé en el Smart TV de la sala y hasta mi viejita la maneja. Encuentra sus novelas al toque. Ahora ya no peleamos por el control, cada uno tiene lo suyo en su perfil."</p>
+            <div class="test-author"><div class="test-avatar" style="background:linear-gradient(135deg,#4ade80,#059669)">J</div><div><h5>José L.</h5><span>Cusco</span></div></div>
+        </div>
+        <div class="test-card">
+            <div class="test-stars">★★★★★</div>
+            <p>"Como universitaria, mi presupuesto no da para tanto. RíoTV me salvó. Todo lo que mis amigos comentan está ahí. La interfaz es súper fácil, no necesitas ser tecnólogo."</p>
+            <div class="test-author"><div class="test-avatar" style="background:linear-gradient(135deg,#f472b6,#db2777)">A</div><div><h5>Ana V.</h5><span>Piura</span></div></div>
+        </div>
+        <div class="test-card">
+            <div class="test-stars">★★★★★</div>
+            <p>"Lo que más me gusta es que siempre está al día. El mismo finde que sale un estreno ya lo tienen. La app no se cuelga, no se traba, va fluidazo. Una maravilla."</p>
+            <div class="test-author"><div class="test-avatar" style="background:linear-gradient(135deg,#60a5fa,#2563eb)">D</div><div><h5>Diego R.</h5><span>Lima</span></div></div>
+        </div>
+        <div class="test-card">
+            <div class="test-stars">★★★★★</div>
+            <p>"Tiene de todo: series gringas, novelas peruanas, pelis de acción, comedias. Hasta contenido en quechua encontré para mi abuelita. La atención al cliente responde rapidazo."</p>
+            <div class="test-author"><div class="test-avatar" style="background:linear-gradient(135deg,#fb923c,#ea580c)">R</div><div><h5>Rosa S.</h5><span>Chiclayo</span></div></div>
         </div>
     </div>
 </section>
 
-<!-- ====== TESTIMONIOS — no platform names ─===== -->
-<section id="testimonios" class="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-    <div class="text-center mb-16">
-        <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase">Lo Que Dicen</span>
-        <h2 class="text-3xl sm:text-4xl font-bold text-white mt-3 mb-4">
-            Miles de peruanos ya lo <span class="text-gold-400">comprobaron</span>
-        </h2>
+<!-- ═══ FAQ ═══ -->
+<section style="background:rgba(255,255,255,.01)">
+    <div class="container-xs text-center">
+        <span class="section-tag">Preguntas Frecuentes</span>
+        <h2 class="section-title">Resolvemos tus <span class="text-gold">dudas</span></h2>
     </div>
-
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="card-glass rounded-2xl p-6">
-            <div class="flex items-center gap-1 mb-4 text-gold-400">★ ★ ★ ★ ★</div>
-            <p class="text-gray-300 text-sm leading-relaxed mb-5">"Pensé que era demasiado bueno para ser verdad, pero llevo 3 meses usándolo y es increíble. Tiene de todo: acción, drama, comedias. Se lo recomendé a toda mi familia en Arequipa."</p>
-            <div class="flex items-center gap-3 pt-4 border-t border-white/5">
-                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-gold-400 to-red-400 flex items-center justify-center text-white font-bold text-sm">CG</div>
-                <div><div class="text-sm font-semibold text-white">Carlos G.</div><div class="text-xs text-gray-500">Lima, Perú</div></div>
-            </div>
-        </div>
-        <div class="card-glass rounded-2xl p-6">
-            <div class="flex items-center gap-1 mb-4 text-gold-400">★ ★ ★ ★ ★</div>
-            <p class="text-gray-300 text-sm leading-relaxed mb-5">"Lo uso camino al trabajo. La calidad es buenísima y puedo descargar capítulos para verlos sin internet. Ya no pago múltiples servicios. ¡Joyita total!"</p>
-            <div class="flex items-center gap-3 pt-4 border-t border-white/5">
-                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-blue-400 flex items-center justify-center text-white font-bold text-sm">MP</div>
-                <div><div class="text-sm font-semibold text-white">María P.</div><div class="text-xs text-gray-500">Trujillo, Perú</div></div>
-            </div>
-        </div>
-        <div class="card-glass rounded-2xl p-6">
-            <div class="flex items-center gap-1 mb-4 text-gold-400">★ ★ ★ ★ ★</div>
-            <p class="text-gray-300 text-sm leading-relaxed mb-5">"Lo instalé en el Smart TV de mi sala y se ve como un servicio premium. Tiene todos los estrenos. Mis hijos ven sus dibujos animados y yo mis series. Perfecto."</p>
-            <div class="flex items-center gap-3 pt-4 border-t border-white/5">
-                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-green-400 to-teal-400 flex items-center justify-center text-white font-bold text-sm">JL</div>
-                <div><div class="text-sm font-semibold text-white">José L.</div><div class="text-xs text-gray-500">Cusco, Perú</div></div>
-            </div>
-        </div>
-        <div class="card-glass rounded-2xl p-6">
-            <div class="flex items-center gap-1 mb-4 text-gold-400">★ ★ ★ ★ ★</div>
-            <p class="text-gray-300 text-sm leading-relaxed mb-5">"La app es súper fácil de usar, incluso mi mamá de 65 años la maneja sin problemas. Todo el contenido que le gusta está ahí, y se ve genial en su tablet."</p>
-            <div class="flex items-center gap-3 pt-4 border-t border-white/5">
-                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-rose-400 flex items-center justify-center text-white font-bold text-sm">AV</div>
-                <div><div class="text-sm font-semibold text-white">Ana V.</div><div class="text-xs text-gray-500">Piura, Perú</div></div>
-            </div>
-        </div>
-        <div class="card-glass rounded-2xl p-6">
-            <div class="flex items-center gap-1 mb-4 text-gold-400">★ ★ ★ ★ ★</div>
-            <p class="text-gray-300 text-sm leading-relaxed mb-5">"Soy estudiante y mi presupuesto es ajustado. Con esta app tengo todo lo que quiero ver en un solo lugar. Los estrenos llegan rapidísimo. La uso a diario."</p>
-            <div class="flex items-center gap-3 pt-4 border-t border-white/5">
-                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-indigo-400 flex items-center justify-center text-white font-bold text-sm">DR</div>
-                <div><div class="text-sm font-semibold text-white">Diego R.</div><div class="text-xs text-gray-500">Lima, Perú</div></div>
-            </div>
-        </div>
-        <div class="card-glass rounded-2xl p-6">
-            <div class="flex items-center gap-1 mb-4 text-gold-400">★ ★ ★ ★ ★</div>
-            <p class="text-gray-300 text-sm leading-relaxed mb-5">"Lo que más me gusta es la variedad. Contenido local peruano, estrenos internacionales, todo está ahí. Calidad Full HD y reproducción fluida. ¡Una maravilla!"</p>
-            <div class="flex items-center gap-3 pt-4 border-t border-white/5">
-                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-orange-400 to-yellow-400 flex items-center justify-center text-white font-bold text-sm">RS</div>
-                <div><div class="text-sm font-semibold text-white">Rosa S.</div><div class="text-xs text-gray-500">Chiclayo, Perú</div></div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ====== FAQ — softened ─===== -->
-<section class="py-20 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
-    <div class="text-center mb-16">
-        <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase">Preguntas Frecuentes</span>
-        <h2 class="text-3xl sm:text-4xl font-bold text-white mt-3">¿Tienes dudas?</h2>
-    </div>
-    <div class="space-y-4">
-        <details class="card-glass rounded-xl p-5 cursor-pointer group">
-            <summary class="font-semibold text-white flex items-center justify-between list-none">
-                ¿Cómo accedo al contenido de la app?
-                <svg class="w-5 h-5 text-gold-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </summary>
-            <p class="mt-4 text-gray-400 text-sm leading-relaxed">Solo tienes que descargar la app desde Google Play, crear una cuenta gratuita y empezar a explorar el catálogo. No pedimos datos de tarjeta ni información de pago.</p>
+    <div class="container-xs flex flex-col gap-3" style="margin-top:32px">
+        <details class="faq-item">
+            <summary>¿Cómo funciona RíoTV?</summary>
+            <div class="faq-answer">Descargas la app desde Google Play, creas tu cuenta gratuita y listo. RíoTV organiza y te recomienda contenido para que siempre tengas algo bueno que ver. Es como tener un amigo que siempre sabe qué serie o peli recomendarte.</div>
         </details>
-        <details class="card-glass rounded-xl p-5 cursor-pointer group">
-            <summary class="font-semibold text-white flex items-center justify-between list-none">
-                ¿Puedo ver el contenido en mi televisor?
-                <svg class="w-5 h-5 text-gold-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </summary>
-            <p class="mt-4 text-gray-400 text-sm leading-relaxed">¡Sí! La app es compatible con Smart TV, Android TV, Fire Stick, Chromecast y cualquier televisor con conexión a internet. Solo descarga la app desde tu tienda y sigue las instrucciones.</p>
+        <details class="faq-item">
+            <summary>¿Realmente es gratis?</summary>
+            <div class="faq-answer">Sí, la app es gratuita. No pedimos datos de tarjeta ni hacemos cobros sorpresa. RíoTV se sostiene con publicidad que no interrumpe tu experiencia, así que tú solo preocúpate por disfrutar.</div>
         </details>
-        <details class="card-glass rounded-xl p-5 cursor-pointer group">
-            <summary class="font-semibold text-white flex items-center justify-between list-none">
-                ¿El contenido está en español latino?
-                <svg class="w-5 h-5 text-gold-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </summary>
-            <p class="mt-4 text-gray-400 text-sm leading-relaxed">La gran mayoría del catálogo incluye doblaje al español latino y subtítulos en español. También ofrecemos versiones en idioma original con subtítulos para quienes lo prefieran.</p>
+        <details class="faq-item">
+            <summary>¿Funciona en mi televisor?</summary>
+            <div class="faq-answer">Claro que sí. RíoTV funciona en Smart TV, Android TV, Fire Stick, Chromecast y cualquier tele con conexión a internet. Solo descargas la app y en segundos estás viendo en pantalla grande.</div>
         </details>
-        <details class="card-glass rounded-xl p-5 cursor-pointer group">
-            <summary class="font-semibold text-white flex items-center justify-between list-none">
-                ¿Cada cuánto agregan contenido nuevo?
-                <svg class="w-5 h-5 text-gold-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </summary>
-            <p class="mt-4 text-gray-400 text-sm leading-relaxed">Agregamos contenido nuevo cada semana. Nuestro equipo trabaja para que siempre encuentres algo nuevo y emocionante que ver.</p>
+        <details class="faq-item">
+            <summary>¿El contenido está en español latino?</summary>
+            <div class="faq-answer">Así es. Casi todo el catálogo tiene doblaje al español latino y subtítulos. También puedes ver en idioma original si prefieres. Tú decides cómo disfrutar cada contenido.</div>
         </details>
-        <details class="card-glass rounded-xl p-5 cursor-pointer group">
-            <summary class="font-semibold text-white flex items-center justify-between list-none">
-                ¿Es segura la aplicación?
-                <svg class="w-5 h-5 text-gold-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </summary>
-            <p class="mt-4 text-gray-400 text-sm leading-relaxed">Totalmente. Nuestra app cumple con los estándares de seguridad de Google Play. No recopilamos información personal innecesaria y respetamos tu privacidad.</p>
+        <details class="faq-item">
+            <summary>¿Es segura la app?</summary>
+            <div class="faq-answer">Totalmente. RíoTV cumple con todos los estándares de seguridad de Google Play. Respetamos tu privacidad y no compartimos tu información personal. Tu seguridad es prioridad para nosotros.</div>
         </details>
     </div>
 </section>
 
-<!-- ====== DOWNLOAD ─===== -->
-<section id="descargar" class="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-br from-dark-700 via-dark-800 to-dark-900"></div>
-    <div class="absolute top-10 left-10 w-64 h-64 rounded-full bg-gold-400/5 blur-3xl"></div>
-    <div class="absolute bottom-10 right-10 w-96 h-96 rounded-full bg-purple-600/5 blur-3xl"></div>
-
-    <div class="max-w-4xl mx-auto text-center relative z-10">
-        <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase">Descarga Ahora</span>
-        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3 mb-4">
-            El mejor entretenimiento<br>en tu <span class="text-gold-400">bolsillo</span>
-        </h2>
-        <p class="text-gray-400 text-lg max-w-xl mx-auto mb-10">
-            Disponible para Android. Instalación rápida y sencilla. Descubre un mundo de contenido esperándote.
-        </p>
-        <div class="flex items-center justify-center mb-8">
-            <a href="#" class="bg-white text-black px-10 py-5 rounded-2xl text-lg inline-flex items-center justify-center gap-3 font-bold hover:bg-gray-200 transition-all duration-300 group hover:shadow-xl hover:shadow-white/10">
-                <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.807 1.626a1 1 0 010 1.732l-2.807 1.626L15.206 12l2.492-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
-                <div class="text-left"><div class="text-xs opacity-60">Disponible en</div><div class="font-bold">Google Play</div></div>
+<!-- ═══ DOWNLOAD ═══ -->
+<section id="descargar" class="cta-section">
+    <div class="container-xs text-center" style="position:relative;z-index:1">
+        <span class="section-tag">Descarga Ahora</span>
+        <h2 class="section-title">Todo lo que te gusta ver,<br><span class="text-gold">en tu bolsillo</span></h2>
+        <p class="section-desc">Disponible en Google Play. Instalación rápida, cuenta gratis, sin letra chica.</p>
+        <div class="flex items-center justify-center" style="margin-top:32px">
+            <a href="#" class="btn btn-white btn-lg" style="gap:12px;font-size:1.05rem">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M3.61 1.81L13.79 12 3.61 22.19a1 1 0 01-.61-.92V2.73a1 1 0 01.61-.92zm10.89 10.9l2.3 2.3-10.93 6.33 8.63-8.63zm3.2-3.2l2.8 1.62a1 1 0 010 1.74l-2.8 1.62L15.2 12l2.5-2.49zM5.86 2.66L16.8 8.99l-2.3 2.3L5.86 2.66z"/></svg>
+                <div style="text-align:left;line-height:1.2"><div style="font-size:.65rem;opacity:.6">Disponible en</div><div style="font-weight:800">Google Play</div></div>
             </a>
         </div>
-        <p class="text-gray-500 text-xs">* La aplicación es gratuita. No se requiere registro con tarjeta.</p>
+        <p style="font-size:.75rem;color:var(--gray2);margin-top:14px">* App gratuita. No requiere registro con tarjeta.</p>
     </div>
 </section>
 
-<!-- ====== FOOTER ─===== -->
-<footer class="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/5">
-    <div class="max-w-6xl mx-auto">
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+<!-- ═══ FOOTER ═══ -->
+<footer>
+    <div class="container">
+        <div class="footer-grid">
             <div>
-                <div class="flex items-center gap-2 mb-4">
-                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center text-black font-extrabold text-xs">SP</div>
-                    <span class="font-bold">Río<span class="text-gold-400">TV</span></span>
+                <div class="flex items-center gap-2" style="margin-bottom:14px">
+                    <svg width="28" height="28" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="10" fill="url(#g2)"/><defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#d4a574"/><stop offset="100%" stop-color="#b8860b"/></linearGradient></defs><path d="M6 5 Q14 18 22 5" stroke="#000" stroke-width="2.8" fill="none" stroke-linecap="round"/><circle cx="14" cy="16" r="4" fill="#000"/></svg>
+                    <span style="font-weight:700;color:var(--white)">Río<span class="text-gold">TV</span></span>
                 </div>
-                <p class="text-gray-500 text-sm leading-relaxed">Tu app de entretenimiento premium. Disfruta sin límites del mejor contenido en un solo lugar.</p>
+                <p style="font-size:.8rem;color:var(--gray2);line-height:1.6">Tu app de confianza para descubrir el mejor entretenimiento. Hecha con cariño para el pueblo peruano.</p>
             </div>
             <div>
-                <h4 class="text-white font-semibold mb-4">Explorar</h4>
-                <ul class="space-y-2 text-sm text-gray-400">
-                    <li><a href="#catalogo" class="hover:text-gold-400 transition-colors">Catálogo</a></li>
-                    <li><a href="#ventajas" class="hover:text-gold-400 transition-colors">Ventajas</a></li>
-                    <li><a href="#testimonios" class="hover:text-gold-400 transition-colors">Opiniones</a></li>
-                    <li><a href="#descargar" class="hover:text-gold-400 transition-colors">Descargar</a></li>
-                </ul>
+                <h4 style="color:var(--white);margin-bottom:14px;font-size:.9rem">Explorar</h4>
+                <div class="flex flex-col gap-2" style="font-size:.8rem;color:var(--gray2)">
+                    <a href="#catalogo" style="transition:color .2s">Catálogo</a>
+                    <a href="#ventajas" style="transition:color .2s">Ventajas</a>
+                    <a href="#testimonios" style="transition:color .2s">Opiniones</a>
+                    <a href="#descargar" style="transition:color .2s">Descargar</a>
+                </div>
             </div>
             <div>
-                <h4 class="text-white font-semibold mb-4">Soporte</h4>
-                <ul class="space-y-2 text-sm text-gray-400">
-                    <li><a href="#" class="hover:text-gold-400 transition-colors">Contacto</a></li>
-                    <li><a href="#" class="hover:text-gold-400 transition-colors">Términos de Uso</a></li>
-                    <li><a href="#" class="hover:text-gold-400 transition-colors">Privacidad</a></li>
-                </ul>
+                <h4 style="color:var(--white);margin-bottom:14px;font-size:.9rem">Soporte</h4>
+                <div class="flex flex-col gap-2" style="font-size:.8rem;color:var(--gray2)">
+                    <a href="#">Contacto</a>
+                    <a href="#">Términos de Uso</a>
+                    <a href="#">Privacidad</a>
+                </div>
             </div>
             <div>
-                <h4 class="text-white font-semibold mb-4">Descargar App</h4>
-                <div class="space-y-3">
-                    <a href="#" class="flex items-center gap-2 text-sm text-gray-400 hover:text-gold-400 transition-colors">
-                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.807 1.626a1 1 0 010 1.732l-2.807 1.626L15.206 12l2.492-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
+                <h4 style="color:var(--white);margin-bottom:14px;font-size:.9rem">Descargar</h4>
+                <div class="flex flex-col gap-2" style="font-size:.8rem;color:var(--gray2)">
+                    <a href="#" class="flex items-center gap-2">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3.61 1.81L13.79 12 3.61 22.19a1 1 0 01-.61-.92V2.73a1 1 0 01.61-.92zm10.89 10.9l2.3 2.3-10.93 6.33 8.63-8.63zm3.2-3.2l2.8 1.62a1 1 0 010 1.74l-2.8 1.62L15.2 12l2.5-2.49zM5.86 2.66L16.8 8.99l-2.3 2.3L5.86 2.66z"/></svg>
                         Google Play
                     </a>
                 </div>
             </div>
         </div>
-        <div class="pt-8 border-t border-white/5">
-            <p class="text-gray-600 text-xs leading-relaxed text-center">
-                RíoTV es una aplicación independiente de descubrimiento de contenido. Las marcas y títulos mencionados son propiedad de sus respectivos titulares.
-                Este sitio no está afiliado ni respaldado por terceras compañías. El usuario es responsable del uso que haga de la aplicación de acuerdo con las leyes aplicables.
-            </p>
-            <p class="text-gray-600 text-xs text-center mt-3">© 2026 RíoTV. Hecho con ❤️ para el pueblo peruano.</p>
+        <div class="footer-disclaimer">
+            RíoTV es una aplicación independiente de descubrimiento y organización de contenido. Las marcas mencionadas pertenecen a sus respectivos titulares. RíoTV no está afiliada ni respaldada por terceras compañías. El usuario es responsable del uso que haga de la aplicación de acuerdo con las leyes aplicables en su jurisdicción.<br><br>
+            © 2026 RíoTV. Hecho con ❤️ en Perú.
         </div>
     </div>
 </footer>
 
-<!-- ====== FLOATING CTA ─===== -->
-<div class="float-cta">
-    <a href="#descargar" class="btn-cta px-5 py-3 rounded-full text-sm flex items-center gap-2 shadow-2xl md:hidden">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/></svg>
-        Descargar
-    </a>
+<!-- ═══ FLOATING CTA (mobile) ═══ -->
+<div class="float-btn">
+    <a href="#descargar" class="btn btn-gold btn-sm" style="padding:12px 22px;border-radius:999px;box-shadow:0 4px 30px rgba(0,0,0,.5);font-size:.8rem">📲 Descargar</a>
 </div>
 
-<!-- ====== MODAL ─===== -->
-<div id="modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
-    <div class="modal-overlay absolute inset-0" onclick="closeModal()"></div>
-    <div class="card-glass rounded-3xl p-6 sm:p-10 max-w-md w-full text-center relative z-10 animate-float">
-        <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
-        <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-gold-400/20 to-gold-600/20 border border-gold-400/30 flex items-center justify-center">
-            <svg class="w-10 h-10 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/></svg>
+<!-- ═══ MODAL ═══ -->
+<div id="modal" class="modal hidden">
+    <div class="modal-bg" onclick="closeModal()"></div>
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()">✕</button>
+        <div style="width:64px;height:64px;margin:0 auto 20px;border-radius:50%;background:rgba(201,169,110,.12);border:2px solid rgba(201,169,110,.25);display:flex;align-items:center;justify-content:center">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/></svg>
         </div>
-        <h3 id="modalTitle" class="text-xl font-bold text-white mb-2">¡Descarga la App para Empezar!</h3>
-        <p id="modalDesc" class="text-gray-400 text-sm mb-6">Este contenido está disponible en nuestra app. Descárgala ahora y empieza a disfrutar del mejor entretenimiento.</p>
-        <div class="space-y-3">
-            <a href="#descargar" class="btn-cta w-full py-3.5 rounded-xl text-base flex items-center justify-center gap-2" onclick="closeModal()">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.807 1.626a1 1 0 010 1.732l-2.807 1.626L15.206 12l2.492-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
-                Descargar en Google Play
-            </a>
-        </div>
-        <p class="text-gray-500 text-xs mt-5">Instalación rápida · Sin registro de tarjeta</p>
+        <h3 id="modalTitle" style="font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:10px">¡Descarga RíoTV para Empezar!</h3>
+        <p id="modalDesc" style="font-size:.85rem;color:var(--gray);margin-bottom:22px">Este contenido está disponible en la app. Descárgala gratis y empieza a disfrutar hoy mismo.</p>
+        <a href="#descargar" class="btn btn-white btn-md" style="display:flex;justify-content:center;width:100%" onclick="closeModal()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3.61 1.81L13.79 12 3.61 22.19a1 1 0 01-.61-.92V2.73a1 1 0 01.61-.92zm10.89 10.9l2.3 2.3-10.93 6.33 8.63-8.63zm3.2-3.2l2.8 1.62a1 1 0 010 1.74l-2.8 1.62L15.2 12l2.5-2.49zM5.86 2.66L16.8 8.99l-2.3 2.3L5.86 2.66z"/></svg>
+            Descargar en Google Play
+        </a>
     </div>
 </div>
 
-<!-- ====== SCRIPTS ─===== -->
+<!-- ═══ SCRIPTS ═══ -->
 <script>
-    // Genre-based catalog — CSS gradient + SVG icons (zero external assets)
-    const movies = [
-        // ═══ Series (6) ═══
-        {title:"Dramas Premiados",year:"Serie",rating:"9.2",type:"serie",
-         grad:"linear-gradient(135deg, #1a0533 0%, #2d1b69 30%, #4a2c8a 60%, #1a0533 100%)",
-         icon:'<svg viewBox="0 0 64 64" fill="none"><mask id="m1"><circle cx="20" cy="32" r="14" fill="white"/><circle cx="44" cy="32" r="14" fill="white"/></mask><circle cx="20" cy="32" r="15" fill="rgba(255,255,255,0.9)" stroke="rgba(212,165,116,0.4)" stroke-width="1"/><circle cx="44" cy="32" r="15" fill="rgba(255,255,255,0.9)" stroke="rgba(212,165,116,0.4)" stroke-width="1"/><path d="M18 28 Q20 35 20 38" fill="none" stroke="rgba(0,0,0,0.4)" stroke-width="2.5" stroke-linecap="round"/><path d="M42 28 Q44 35 44 38" fill="none" stroke="rgba(0,0,0,0.4)" stroke-width="2.5" stroke-linecap="round"/></svg>'},
-        {title:"Acción sin Límites",year:"Serie",rating:"9.0",type:"serie",
-         grad:"linear-gradient(135deg, #1a0a0a 0%, #4a1010 30%, #8b1a1a 60%, #1a0a0a 100%)",
-         icon:'<svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="14" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/><circle cx="32" cy="32" r="6" fill="rgba(255,180,100,0.9)"/><path d="M32 16 L32 28 M32 36 L32 48 M16 32 L28 32 M36 32 L48 32" stroke="rgba(255,200,140,0.7)" stroke-width="3" stroke-linecap="round"/><path d="M22 22 L29 29 M35 35 L42 42 M42 22 L35 29 M29 35 L22 42" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" stroke-linecap="round"/></svg>'},
-        {title:"Thrillers que Atrapan",year:"Serie",rating:"8.9",type:"serie",
-         grad:"linear-gradient(135deg, #0a0a1a 0%, #0f2040 30%, #1a3a6a 60%, #0a0a1a 100%)",
-         icon:'<svg viewBox="0 0 64 64" fill="none"><circle cx="30" cy="28" r="11" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="2.5"/><path d="M38 36 L52 52" stroke="rgba(212,165,116,0.9)" stroke-width="4" stroke-linecap="round"/><circle cx="30" cy="28" r="4" fill="rgba(212,165,116,0.5)"/></svg>'},
-        {title:"Comedias Familiares",year:"Serie",rating:"8.7",type:"serie",
-         grad:"linear-gradient(135deg, #1a1400 0%, #4a3800 30%, #8b6b00 60%, #1a1400 100%)",
-         icon:'<svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="30" r="16" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="2"/><circle cx="25" cy="27" r="3" fill="rgba(255,255,255,0.9)"/><circle cx="39" cy="27" r="3" fill="rgba(255,255,255,0.9)"/><path d="M22 36 Q32 46 42 36" fill="none" stroke="rgba(212,165,116,0.9)" stroke-width="2.5" stroke-linecap="round"/></svg>'},
-        {title:"Aventuras Épicas",year:"Serie",rating:"8.8",type:"serie",
-         grad:"linear-gradient(135deg, #0a1a0a 0%, #104020 30%, #1a6a3a 60%, #0a1a0a 100%)",
-         icon:'<svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="28" r="14" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1"/><polygon points="32,12 38,24 50,24 41,32 44,44 32,37 20,44 23,32 14,24 26,24" fill="rgba(212,165,116,0.85)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/></svg>'},
-        {title:"Ciencia Ficción TOP",year:"Serie",rating:"9.1",type:"serie",
-         grad:"linear-gradient(135deg, #001a33 0%, #003060 30%, #0050a0 60%, #001a33 100%)",
-         icon:'<svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="20" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/><ellipse cx="32" cy="32" rx="18" ry="6" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.8" transform="rotate(-30 32 32)"/><circle cx="32" cy="32" r="5" fill="rgba(212,165,116,0.9)"/><circle cx="22" cy="22" r="2" fill="rgba(255,255,255,0.5)"/><circle cx="44" cy="28" r="1.5" fill="rgba(255,255,255,0.3)"/></svg>'},
-        // ═══ Películas (4) ═══
-        {title:"Estrenos de Cartelera",year:"Película",rating:"9.3",type:"pelicula",
-         grad:"linear-gradient(135deg, #1a001a 0%, #4a1050 30%, #8a2090 60%, #1a001a 100%)",
-         icon:'<svg viewBox="0 0 64 64" fill="none"><rect x="12" y="14" width="40" height="36" rx="3" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/><rect x="16" y="20" width="18" height="14" rx="1" fill="rgba(212,165,116,0.15)" stroke="rgba(212,165,116,0.4)" stroke-width="1"/><path d="M56 24 L60 28 L56 32" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"/><circle cx="28" cy="44" r="3" fill="rgba(255,255,255,0.5)"/><circle cx="36" cy="44" r="3" fill="rgba(255,255,255,0.5)"/></svg>'},
-        {title:"Aventura Animada",year:"Película",rating:"8.8",type:"pelicula",
-         grad:"linear-gradient(135deg, #001a1a 0%, #004040 30%, #007070 60%, #001a1a 100%)",
-         icon:'<svg viewBox="0 0 64 64" fill="none"><path d="M32 12 Q22 28 18 38 Q16 44 22 48 Q30 52 32 48 Q34 52 42 48 Q48 44 46 38 Q42 28 32 12Z" fill="rgba(212,165,116,0.12)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/><path d="M32 30 Q26 38 24 42" fill="none" stroke="rgba(212,165,116,0.6)" stroke-width="2" stroke-linecap="round"/><path d="M32 30 Q38 38 40 42" fill="none" stroke="rgba(212,165,116,0.6)" stroke-width="2" stroke-linecap="round"/><circle cx="32" cy="28" r="2.5" fill="rgba(255,255,255,0.8)"/></svg>'},
-        {title:"Superhéroes en Acción",year:"Película",rating:"9.0",type:"pelicula",
-         grad:"linear-gradient(135deg, #1a0a00 0%, #4a1a00 30%, #8b3000 60%, #1a0a00 100%)",
-         icon:'<svg viewBox="0 0 64 64" fill="none"><polygon points="32,6 38,24 56,24 42,35 48,54 32,43 16,54 22,35 8,24 26,24" fill="rgba(212,165,116,0.85)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/><circle cx="32" cy="28" r="4" fill="rgba(0,0,0,0.3)"/></svg>'},
-        {title:"Terror y Suspenso",year:"Película",rating:"8.5",type:"pelicula",
-         grad:"linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 30%, #333333 60%, #0a0a0a 100%)",
-         icon:'<svg viewBox="0 0 64 64" fill="none"><path d="M48 55 Q40 30 48 10" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="20"/><path d="M44 55 Q36 30 44 10" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="16"/><circle cx="32" cy="34" r="16" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/><path d="M22 42 Q32 50 42 42" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round"/><circle cx="26" cy="30" r="2.5" fill="rgba(255,255,255,0.8)"/><circle cx="38" cy="30" r="2.5" fill="rgba(255,255,255,0.8)"/></svg>'},
-        // ═══ Contenido Local (2) ═══
-        {title:"Novelas Latinas",year:"Serie Local",rating:"9.0",type:"latino",
-         grad:"linear-gradient(135deg, #330000 0%, #6b1010 30%, #aa2020 60%, #330000 100%)",
-         icon:'<svg viewBox="0 0 64 64" fill="none"><path d="M32 10 Q18 30 18 46 Q18 56 32 56 Q46 56 46 46 Q46 30 32 10Z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/><path d="M24 32 Q28 38 32 36 Q36 34 40 38" fill="none" stroke="rgba(212,165,116,0.7)" stroke-width="2" stroke-linecap="round"/><path d="M20 44 Q26 52 32 48 Q38 52 44 44" fill="none" stroke="rgba(212,165,116,0.5)" stroke-width="1.5" stroke-linecap="round"/><circle cx="32" cy="28" r="3" fill="rgba(255,255,255,0.7)"/></svg>'},
-        {title:"Cine Peruano",year:"Película Local",rating:"8.6",type:"latino",
-         grad:"linear-gradient(135deg, #1a0a00 0%, #4a2810 30%, #6b3a20 60%, #1a0a00 100%)",
-         icon:'<svg viewBox="0 0 64 64" fill="none"><polygon points="32,10 14,48 50,48" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/><polygon points="32,18 22,40 42,40" fill="rgba(255,255,255,0.08)" stroke="rgba(212,165,116,0.5)" stroke-width="1"/><path d="M28 40 L32 48 L36 40" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/><circle cx="32" cy="28" r="5" fill="rgba(212,165,116,0.7)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/><path d="M28 17 L36 17" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round"/></svg>'},
-    ];
+const movies=[
+{title:"Dramas que Enganchan",year:"Serie",rating:"9.2",type:"serie",icon:'<svg viewBox="0 0 64 64" fill="none"><circle cx="20" cy="32" r="15" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="1.5"/><circle cx="44" cy="32" r="15" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="1.5"/><path d="M18 28 Q20 35 20 38" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2.5" stroke-linecap="round"/><path d="M42 28 Q44 35 44 38" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2.5" stroke-linecap="round"/></svg>',grad:"linear-gradient(135deg,#1a0533,#2d1b69,#4a2c8a,#1a0533)"},
+{title:"Acción sin Límites",year:"Serie",rating:"9.0",type:"serie",icon:'<svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="14" fill="none" stroke="rgba(255,255,255,.15)" stroke-width="1"/><circle cx="32" cy="32" r="6" fill="rgba(255,180,100,.85)"/><path d="M32 16 L32 28 M32 36 L32 48 M16 32 L28 32 M36 32 L48 32" stroke="rgba(255,200,140,.6)" stroke-width="3" stroke-linecap="round"/></svg>',grad:"linear-gradient(135deg,#1a0a0a,#4a1010,#8b1a1a,#1a0a0a)"},
+{title:"Thrillers Intensos",year:"Serie",rating:"8.9",type:"serie",icon:'<svg viewBox="0 0 64 64" fill="none"><circle cx="30" cy="28" r="12" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="2.5"/><path d="M38 36 L52 52" stroke="var(--gold)" stroke-width="4" stroke-linecap="round"/><circle cx="30" cy="28" r="4" fill="rgba(201,169,110,.4)"/></svg>',grad:"linear-gradient(135deg,#0a0a1a,#0f2040,#1a3a6a,#0a0a1a)"},
+{title:"Comedias para Reír",year:"Serie",rating:"8.7",type:"serie",icon:'<svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="30" r="16" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="2"/><circle cx="25" cy="27" r="3" fill="rgba(255,255,255,.85)"/><circle cx="39" cy="27" r="3" fill="rgba(255,255,255,.85)"/><path d="M22 36 Q32 48 42 36" fill="none" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round"/></svg>',grad:"linear-gradient(135deg,#1a1400,#4a3800,#8b6b00,#1a1400)"},
+{title:"Aventuras Épicas",year:"Serie",rating:"8.8",type:"serie",icon:'<svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="28" r="16" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="1"/><polygon points="32,10 39,24 52,24 41,32 45,46 32,37 19,46 23,32 12,24 25,24" fill="rgba(201,169,110,.8)" stroke="rgba(255,255,255,.25)" stroke-width="1"/></svg>',grad:"linear-gradient(135deg,#0a1a0a,#104020,#1a6a3a,#0a1a0a)"},
+{title:"Ciencia Ficción TOP",year:"Serie",rating:"9.1",type:"serie",icon:'<svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="22" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="1"/><ellipse cx="32" cy="32" rx="18" ry="6" fill="none" stroke="rgba(255,255,255,.15)" stroke-width=".8" transform="rotate(-30 32 32)"/><circle cx="32" cy="32" r="6" fill="rgba(201,169,110,.85)"/><circle cx="20" cy="22" r="2" fill="rgba(255,255,255,.4)"/><circle cx="46" cy="28" r="1.5" fill="rgba(255,255,255,.25)"/></svg>',grad:"linear-gradient(135deg,#001a33,#003060,#0050a0,#001a33)"},
+{title:"Estrenos de Cartelera",year:"Película",rating:"9.3",type:"pelicula",icon:'<svg viewBox="0 0 64 64" fill="none"><rect x="10" y="12" width="44" height="40" rx="3" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/><rect x="14" y="18" width="20" height="16" rx="1" fill="rgba(255,255,255,.06)" stroke="rgba(201,169,110,.35)" stroke-width="1"/><circle cx="38" cy="42" r="6" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/><circle cx="38" cy="42" r="2" fill="rgba(201,169,110,.6)"/></svg>',grad:"linear-gradient(135deg,#1a001a,#4a1050,#8a2090,#1a001a)"},
+{title:"Animación Familiar",year:"Película",rating:"8.8",type:"pelicula",icon:'<svg viewBox="0 0 64 64" fill="none"><path d="M32 10 Q20 28 16 40 Q14 48 20 52 Q30 56 32 52 Q34 56 44 52 Q50 48 48 40 Q44 28 32 10Z" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="1.5"/><path d="M32 28 Q26 38 24 44" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round"/><path d="M32 28 Q38 38 40 44" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round"/><circle cx="32" cy="26" r="3" fill="rgba(255,255,255,.75)"/></svg>',grad:"linear-gradient(135deg,#001a1a,#004040,#007070,#001a1a)"},
+{title:"Superhéroes en Acción",year:"Película",rating:"9.0",type:"pelicula",icon:'<svg viewBox="0 0 64 64" fill="none"><polygon points="32,4 39,22 56,22 43,32 48,52 32,40 16,52 21,32 8,22 25,22" fill="rgba(201,169,110,.8)" stroke="rgba(255,255,255,.35)" stroke-width="1"/><circle cx="32" cy="26" r="5" fill="rgba(0,0,0,.3)"/></svg>',grad:"linear-gradient(135deg,#1a0a00,#4a1a00,#8b3000,#1a0a00)"},
+{title:"Terror y Suspenso",year:"Película",rating:"8.5",type:"pelicula",icon:'<svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="34" r="18" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/><path d="M20 44 Q32 52 44 44" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="2" stroke-linecap="round"/><circle cx="26" cy="30" r="3" fill="rgba(255,255,255,.75)"/><circle cx="38" cy="30" r="3" fill="rgba(255,255,255,.75)"/></svg>',grad:"linear-gradient(135deg,#0a0a0a,#1a1a1a,#333,#0a0a0a)"},
+{title:"Novelas Peruanas",year:"Serie Local",rating:"9.0",type:"latino",icon:'<svg viewBox="0 0 64 64" fill="none"><path d="M32 8 Q16 30 16 48 Q16 58 32 58 Q48 58 48 48 Q48 30 32 8Z" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="1.5"/><path d="M22 32 Q28 38 32 36 Q36 34 42 38" fill="none" stroke="var(--gold)" stroke-width="2.2" stroke-linecap="round"/><circle cx="32" cy="26" r="3.5" fill="rgba(255,255,255,.65)"/></svg>',grad:"linear-gradient(135deg,#330000,#6b1010,#aa2020,#330000)"},
+{title:"Cine Peruano",year:"Película Local",rating:"8.6",type:"latino",icon:'<svg viewBox="0 0 64 64" fill="none"><polygon points="32,8 8,50 56,50" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="1.5"/><polygon points="32,16 20,42 44,42" fill="none" stroke="var(--gold)" stroke-width="1"/><circle cx="32" cy="28" r="6" fill="rgba(201,169,110,.65)" stroke="rgba(255,255,255,.25)" stroke-width="1"/><path d="M26 30 L38 30" stroke="rgba(255,255,255,.4)" stroke-width="1.5" stroke-linecap="round"/></svg>',grad:"linear-gradient(135deg,#1a0a00,#4a2810,#6b3a20,#1a0a00)"}
+];
 
-    let currentFilter = 'all';
+function renderCards(filter='all'){
+  const grid=document.getElementById('grid');
+  const items=filter==='all'?movies:movies.filter(m=>m.type===filter);
+  grid.innerHTML=items.map(m=>`
+    <div class="card" onclick="openModal('${m.title}')">
+      <div class="card-poster" style="background:${m.grad}">
+        <div class="card-poster-inner">${m.icon}</div>
+        <div class="poster-overlay"></div>
+        <div class="card-badge">★ ${m.rating}</div>
+        <div class="card-btn"><button>▶ Ver en la App</button></div>
+      </div>
+      <div class="card-body"><h4>${m.title}</h4><span>${m.type==='serie'?'📺 Serie':m.type==='latino'?'🇵🇪 Perú':'🎬 Película'}</span></div>
+    </div>
+  `).join('');
+}
 
-    function renderCards(filter = 'all') {
-        const grid = document.getElementById('movieGrid');
-        const filtered = filter === 'all' ? movies : movies.filter(m => m.type === filter);
-        grid.innerHTML = filtered.map(m => `
-            <div class="card-glass rounded-xl overflow-hidden group cursor-pointer" onclick="openModal('${m.title}')">
-                <div class="relative overflow-hidden aspect-[2/3]">
-                    <div class="poster-grad" style="background:${m.grad}">
-                        <div class="poster-icon-wrap w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center" style="filter:drop-shadow(0 4px 16px rgba(0,0,0,0.5))">${m.icon}</div>
-                    </div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent pointer-events-none"></div>
-                    <div class="absolute top-2 right-2"><span class="rating-badge">★ ${m.rating}</span></div>
-                    <div class="absolute bottom-0 left-0 right-0 p-3 z-10">
-                        <button class="w-full py-2 rounded-lg bg-gold-400/90 hover:bg-gold-400 text-black text-xs font-bold opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                            ▶ Ver en la App
-                        </button>
-                    </div>
-                </div>
-                <div class="p-3">
-                    <h3 class="text-white font-semibold text-sm truncate">${m.title}</h3>
-                    <p class="text-gray-500 text-xs">${m.year} · ${m.type === 'serie' ? '📺 Serie' : m.type === 'latino' ? '🇵🇪 Perú' : '🎬 Película'}</p>
-                </div>
-            </div>
-        `).join('');
-    }
+function filter(type){
+  document.querySelectorAll('.filter-btn').forEach(b=>{b.classList.toggle('active',b.textContent.includes(type==='all'?'Todos':type==='serie'?'Series':type==='pelicula'?'Películas':'Perú'))});
+  renderCards(type);
+}
 
-    function filterCards(type) {
-        currentFilter = type;
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            if (btn.dataset.filter === type) {
-                btn.classList.add('bg-gold-400', 'text-black');
-                btn.classList.remove('border', 'border-white/10', 'text-gray-400');
-            } else {
-                btn.classList.remove('bg-gold-400', 'text-black');
-                btn.classList.add('border', 'border-white/10', 'text-gray-400');
-            }
-        });
-        renderCards(type);
-    }
+function openModal(t){document.getElementById('modalTitle').textContent=`"${t}"`;document.getElementById('modal').classList.remove('hidden');document.body.style.overflow='hidden'}
+function closeModal(){document.getElementById('modal').classList.add('hidden');document.body.style.overflow=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 
-    function openModal(title) {
-        document.getElementById('modalTitle').textContent = `"${title}"`;
-        document.getElementById('modal').classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-        document.getElementById('modal').classList.add('hidden');
-        document.body.style.overflow = '';
-    }
-
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-    // Initial render
-    renderCards();
-
-    // Intersection Observer for animations
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.card-glass').forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-        card.style.transition = 'all 0.6s ease';
-        observer.observe(card);
-    });
+renderCards();
 </script>
-
 </body>
 </html>
