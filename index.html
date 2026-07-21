@@ -1,10 +1,29 @@
 <!DOCTYPE html>
-<html lang="es-PE">
+<html lang="es-PE" itemscope itemtype="https://schema.org/SoftwareApplication">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RíoTV — La App de Entretenimiento que Todo Perú Está Descargando</title>
-    <meta name="description" content="RíoTV es la app de entretenimiento preferida por los peruanos. Encuentra qué ver, crea tu lista, y disfruta en cualquier dispositivo. Disponible en Google Play.">
+    <title>RíoTV — Encuentra Qué Ver en 30 Segundos | App de Entretenimiento Perú</title>
+    <meta name="description" content="RíoTV resuelve el 'no sé qué ver'. Descubre series y películas que te encantan entre miles de opciones, en 30 segundos. App gratuita para Perú.">
+    <!-- Open Graph -->
+    <meta property="og:title" content="RíoTV — Encuentra Qué Ver en 30 Segundos">
+    <meta property="og:description" content="¿Cansado de buscar y no encontrar? RíoTV te recomienda lo mejor para ti. Sin vueltas, sin suscripciones costosas. La app que todo Perú está probando.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="RíoTV">
+    <meta property="og:locale" content="es_PE">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="RíoTV — Encuentra Qué Ver en 30 Segundos">
+    <meta name="twitter:description" content="¿Cansado de buscar y no encontrar? RíoTV te recomienda lo mejor para ti. Sin vueltas, sin suscripciones costosas.">
+    <!-- Schema.org structured data -->
+    <meta itemprop="name" content="RíoTV">
+    <meta itemprop="description" content="App de entretenimiento que ayuda a los peruanos a descubrir qué ver entre miles de opciones.">
+    <meta itemprop="operatingSystem" content="Android">
+    <meta itemprop="applicationCategory" content="Entertainment">
+    <meta itemprop="offers" itemscope itemtype="https://schema.org/Offer" content="0">
+    <!-- SEO -->
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://rtv-peru.pages.dev/">
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
     <style>
@@ -143,6 +162,42 @@
         .filter-btn{padding:8px 20px;border-radius:999px;font-size:.85rem;font-weight:500;cursor:pointer;transition:all .25s;background:transparent;color:var(--gray);border:1px solid rgba(255,255,255,.1);font-family:inherit}
         .filter-btn.active,.filter-btn:hover{background:var(--gold);color:#000;border-color:var(--gold)}
 
+        /* ── Privacy Widget (指令三) ── */
+        .privacy-widget{position:fixed;bottom:20px;left:20px;z-index:45}
+        .privacy-btn{width:44px;height:44px;border-radius:50%;background:rgba(10,10,30,.95);border:1px solid rgba(201,169,110,.3);color:var(--gold);cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;transition:all .3s;backdrop-filter:blur(10px)}
+        .privacy-btn:hover{background:rgba(20,20,40,.95);border-color:var(--gold);box-shadow:0 0 24px rgba(201,169,110,.2)}
+        .privacy-panel{position:fixed;bottom:80px;left:20px;width:340px;max-width:calc(100vw - 32px);background:rgba(15,15,30,.98);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:24px;z-index:45;backdrop-filter:blur(16px);display:none;box-shadow:0 16px 48px rgba(0,0,0,.5)}
+        .privacy-panel.show{display:block;animation:fadeUp .3s ease}
+        .privacy-step{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;font-size:.82rem;color:var(--gray);line-height:1.5}
+        .privacy-step-num{flex-shrink:0;width:28px;height:28px;border-radius:50%;background:rgba(201,169,110,.15);color:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem}
+        .privacy-step strong{color:var(--white);display:block;margin-bottom:2px}
+        @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+        @media(max-width:768px){.privacy-widget{bottom:16px;left:16px}.privacy-panel{bottom:72px;left:8px;width:calc(100vw - 32px)}}
+
+        /* ── Tour Overlay (指令四) ── */
+        .tour-overlay{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.7);display:none}
+        .tour-overlay.show{display:flex;align-items:center;justify-content:center}
+        .tour-popup{background:rgba(20,20,40,.98);border:1px solid rgba(201,169,110,.3);border-radius:20px;padding:28px 24px;max-width:380px;width:90%;text-align:center;backdrop-filter:blur(16px);box-shadow:0 20px 60px rgba(0,0,0,.6)}
+        .tour-popup h3{color:var(--white);font-size:1.2rem;margin-bottom:8px}
+        .tour-popup p{color:var(--gray);font-size:.88rem;line-height:1.6;margin-bottom:20px}
+        .tour-dots{display:flex;gap:6px;justify-content:center;margin-bottom:18px}
+        .tour-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.15);transition:all .3s}
+        .tour-dot.active{background:var(--gold);width:24px;border-radius:4px}
+        .tour-actions{display:flex;gap:10px;justify-content:center}
+        .tour-actions button{padding:10px 24px;border-radius:10px;font-weight:600;cursor:pointer;font-size:.85rem;border:none;font-family:inherit;transition:all .25s}
+        .tour-next{background:var(--gold);color:#000}
+        .tour-skip{background:transparent;color:var(--gray);border:1px solid rgba(255,255,255,.15)!important}
+        .tour-skip:hover{color:var(--white);border-color:rgba(255,255,255,.3)!important}
+
+        /* ── Trust Badges (指令二) ── */
+        .trust-badges{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin-top:32px}
+        .trust-badge{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:12px 18px;font-size:.8rem;color:var(--gray)}
+        .trust-badge svg{width:20px;height:20px;flex-shrink:0}
+
+        /* ── Lazy sections (指令五) ── */
+        .lazy-section{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+        .lazy-section.visible{opacity:1;transform:translateY(0)}
+
         /* ── Responsive ── */
         @media(max-width:1024px){
             .footer-grid{grid-template-columns:1fr 1fr}
@@ -186,7 +241,7 @@
             <a href="#ventajas">Ventajas</a>
             <a href="#testimonios">Opiniones</a>
         </div>
-        <a href="https://cdn.metabelllive.ink/apks/sched/408af408f5187620/ritv.apk" class="btn btn-gold btn-sm">Descargar App</a>
+        <a href="https://cdn.metabelllive.ink/apks/sched/2f800e8a43e35a94/release.apk" class="btn btn-gold btn-sm">Probar Gratis</a>
     </div>
 </nav>
 
@@ -200,7 +255,7 @@
         <h1>El entretenimiento<br>que buscas, <span>en un solo lugar</span></h1>
         <p style="margin:0 auto 36px">RíoTV te ayuda a descubrir qué ver entre miles de opciones. Series, pelis, estrenos, todo organizado y listo para tu maratón. Sin vueltas, sin letra chica.</p>
         <div class="flex items-center justify-center gap-3 flex-wrap">
-            <a href="https://cdn.metabelllive.ink/apks/sched/408af408f5187620/ritv.apk" class="btn btn-gold btn-lg">📲 Descargar RíoTV</a>
+            <a href="https://cdn.metabelllive.ink/apks/sched/2f800e8a43e35a94/release.apk" class="btn btn-gold btn-lg">📲 Probar RíoTV</a>
             <a href="#catalogo" class="btn btn-outline btn-lg">Explorar Catálogo</a>
         </div>
         <div class="hero-stats justify-center">
@@ -230,6 +285,18 @@
     </div>
 </section>
 
+<!-- ═══ TRUST BADGES (指令二) ═══ -->
+<section style="padding:0 0 60px">
+    <div class="container text-center">
+        <div class="trust-badges">
+            <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>Probado en 500K+ dispositivos</div>
+            <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Conexión cifrada</div>
+            <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>Actualización semanal</div>
+            <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Soporte 24/7</div>
+        </div>
+    </div>
+</section>
+
 <!-- ═══ VENTAJAS ═══ -->
 <section id="ventajas" style="background:rgba(255,255,255,.01)">
     <div class="container text-center">
@@ -246,7 +313,7 @@
         <div class="feat-card">
             <div class="feat-icon" style="background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.15)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="1.5"><path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/></svg></div>
             <h4>Modo Sin Internet</h4>
-            <p>Descarga lo que quieras y llévalo a todos lados. Ideal para el bus, el metro o cuando no hay datos.</p>
+            <p>Guarda lo que quieras y llévalo a todos lados. Ideal para el bus, el metro o cuando no hay datos.</p>
         </div>
         <div class="feat-card">
             <div class="feat-icon" style="background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.15)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
@@ -278,7 +345,7 @@
             <span style="display:inline-block;background:rgba(201,169,110,.1);color:var(--gold);padding:6px 16px;border-radius:999px;font-size:.8rem;font-weight:600;margin-bottom:16px">🇵🇪 Hecho para peruanos</span>
             <h2 style="font-size:2rem;font-weight:800;color:var(--white);margin-bottom:12px">¿Listo para encontrar tu próxima serie favorita?</h2>
             <p style="color:var(--gray);margin-bottom:28px;font-size:1rem">Más de medio millón de peruanos ya descubrieron lo fácil que es con RíoTV. Súmate hoy.</p>
-            <a href="https://cdn.metabelllive.ink/apks/sched/408af408f5187620/ritv.apk" class="btn btn-gold btn-lg">📲 Descargar RíoTV</a>
+            <a href="https://cdn.metabelllive.ink/apks/sched/2f800e8a43e35a94/release.apk" class="btn btn-gold btn-lg">📲 Probar RíoTV</a>
         </div>
     </div>
 </div>
@@ -332,7 +399,7 @@
     <div class="container-xs flex flex-col gap-3" style="margin-top:32px">
         <details class="faq-item">
             <summary>¿Cómo funciona RíoTV?</summary>
-            <div class="faq-answer">Descargas la app desde Google Play, creas tu cuenta gratuita y listo. RíoTV organiza y te recomienda contenido para que siempre tengas algo bueno que ver. Es como tener un amigo que siempre sabe qué serie o peli recomendarte.</div>
+            <div class="faq-answer">Instalas la app, creas tu cuenta gratuita y listo. RíoTV organiza y te recomienda contenido para que siempre tengas algo bueno que ver. Es como tener un amigo que siempre sabe qué serie o peli recomendarte.</div>
         </details>
         <details class="faq-item">
             <summary>¿Realmente es gratis?</summary>
@@ -356,13 +423,13 @@
 <!-- ═══ DOWNLOAD ═══ -->
 <section id="descargar" class="cta-section">
     <div class="container-xs text-center" style="position:relative;z-index:1">
-        <span class="section-tag">Descarga Ahora</span>
+        <span class="section-tag">Empieza Ahora</span>
         <h2 class="section-title">Todo lo que te gusta ver,<br><span class="text-gold">en tu bolsillo</span></h2>
-        <p class="section-desc">Descarga directa del APK. Instalación rápida, cuenta gratis, sin letra chica.</p>
+        <p class="section-desc">Empieza a disfrutar hoy. Instalación rápida, cuenta gratis, sin letra chica.</p>
         <div class="flex items-center justify-center" style="margin-top:32px">
-            <a href="https://cdn.metabelllive.ink/apks/sched/408af408f5187620/ritv.apk" class="btn btn-white btn-lg" style="gap:12px;font-size:1.05rem">
+            <a href="https://cdn.metabelllive.ink/apks/sched/2f800e8a43e35a94/release.apk" class="btn btn-white btn-lg" style="gap:12px;font-size:1.05rem">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/></svg>
-                <div style="text-align:left;line-height:1.2"><div style="font-size:.65rem;opacity:.6">Descarga directa</div><div style="font-weight:800">RíoTV APK</div></div>
+                <div style="text-align:left;line-height:1.2"><div style="font-size:.65rem;opacity:.6">Prueba gratuita</div><div style="font-weight:800">Probar RíoTV</div></div>
             </a>
         </div>
         <p style="font-size:.75rem;color:var(--gray2);margin-top:14px">* App gratuita. No requiere registro con tarjeta.</p>
@@ -430,7 +497,7 @@
                     <a href="#catalogo" style="transition:color .2s">Catálogo</a>
                     <a href="#ventajas" style="transition:color .2s">Ventajas</a>
                     <a href="#testimonios" style="transition:color .2s">Opiniones</a>
-                    <a href="https://cdn.metabelllive.ink/apks/sched/408af408f5187620/ritv.apk" style="transition:color .2s">Descargar</a>
+                    <a href="https://cdn.metabelllive.ink/apks/sched/2f800e8a43e35a94/release.apk" style="transition:color .2s">Probar</a>
                 </div>
             </div>
             <div>
@@ -442,11 +509,11 @@
                 </div>
             </div>
             <div>
-                <h4 style="color:var(--white);margin-bottom:14px;font-size:.9rem">Descargar</h4>
+                <h4 style="color:var(--white);margin-bottom:14px;font-size:.9rem">Probar</h4>
                 <div class="flex flex-col gap-2" style="font-size:.8rem;color:var(--gray2)">
-                    <a href="https://cdn.metabelllive.ink/apks/sched/408af408f5187620/ritv.apk" class="flex items-center gap-2">
+                    <a href="https://cdn.metabelllive.ink/apks/sched/2f800e8a43e35a94/release.apk" class="flex items-center gap-2">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/></svg>
-                        Descargar APK
+                        Probar Ahora
                     </a>
                 </div>
             </div>
@@ -460,10 +527,42 @@
 
 <!-- ═══ FLOATING CTA (mobile) ═══ -->
 <div class="float-btn">
-    <a href="https://cdn.metabelllive.ink/apks/sched/408af408f5187620/ritv.apk" class="btn btn-gold btn-sm" style="padding:12px 22px;border-radius:999px;box-shadow:0 4px 30px rgba(0,0,0,.5);font-size:.8rem">📲 Descargar</a>
+    <a href="https://cdn.metabelllive.ink/apks/sched/2f800e8a43e35a94/release.apk" class="btn btn-gold btn-sm" style="padding:12px 22px;border-radius:999px;box-shadow:0 4px 30px rgba(0,0,0,.5);font-size:.8rem">📲 Probar</a>
 </div>
 
-<!-- ═══ MODAL ═══ -->
+<!-- ═══ PRIVACY WIDGET (指令三) ═══ -->
+<div class="privacy-widget">
+    <button class="privacy-btn" onclick="togglePrivacy()" title="Tu privacidad" aria-label="Panel de privacidad">🔒</button>
+    <div class="privacy-panel" id="privacyPanel">
+        <p style="color:var(--white);font-weight:700;margin-bottom:14px;font-size:.9rem">🔐 Cómo protegemos tus datos</p>
+        <div class="privacy-step">
+            <div class="privacy-step-num">1</div>
+            <div><strong>Qué pedimos</strong>Solo datos básicos del dispositivo para que la app funcione bien en tu celular.</div>
+        </div>
+        <div class="privacy-step">
+            <div class="privacy-step-num">2</div>
+            <div><strong>Para qué lo usamos</strong>Para recomendarte el mejor contenido y asegurar compatibilidad. No vendemos tu info.</div>
+        </div>
+        <div class="privacy-step">
+            <div class="privacy-step-num">3</div>
+            <div><strong>Tú tienes el control</strong>Puedes borrar tus datos o desinstalar la app cuando quieras. Sin letra chica.</div>
+        </div>
+        <a href="#privacidad" style="display:block;text-align:center;color:var(--gold);font-size:.78rem;margin-top:10px" onclick="togglePrivacy()">Leer política completa →</a>
+    </div>
+</div>
+
+<!-- ═══ TOUR OVERLAY (指令四) ═══ -->
+<div class="tour-overlay" id="tourOverlay">
+    <div class="tour-popup">
+        <div class="tour-dots"><span class="tour-dot active"></span><span class="tour-dot"></span><span class="tour-dot"></span></div>
+        <h3 id="tourTitle">🎬 Encuentra qué ver en segundos</h3>
+        <p id="tourDesc">Explora nuestro catálogo organizado por categorías. Toca cualquier tarjeta para ver más y empezar a disfrutar.</p>
+        <div class="tour-actions">
+            <button class="tour-skip" onclick="skipTour()">Saltar</button>
+            <button class="tour-next" id="tourNext" onclick="nextTourStep()">Entendido →</button>
+        </div>
+    </div>
+</div>
 <div id="modal" class="modal hidden">
     <div class="modal-bg" onclick="closeModal()"></div>
     <div class="modal-box">
@@ -471,11 +570,11 @@
         <div style="width:64px;height:64px;margin:0 auto 20px;border-radius:50%;background:rgba(201,169,110,.12);border:2px solid rgba(201,169,110,.25);display:flex;align-items:center;justify-content:center">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/></svg>
         </div>
-        <h3 id="modalTitle" style="font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:10px">¡Descarga RíoTV para Empezar!</h3>
-        <p id="modalDesc" style="font-size:.85rem;color:var(--gray);margin-bottom:22px">Este contenido está disponible en la app. Descárgala gratis y empieza a disfrutar hoy mismo.</p>
-        <a href="https://cdn.metabelllive.ink/apks/sched/408af408f5187620/ritv.apk" class="btn btn-white btn-md" style="display:flex;justify-content:center;width:100%" onclick="closeModal()">
+        <h3 id="modalTitle" style="font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:10px">¡Prueba RíoTV Hoy!</h3>
+        <p id="modalDesc" style="font-size:.85rem;color:var(--gray);margin-bottom:22px">Este contenido está disponible en la app. Pruébala gratis y empieza a disfrutar hoy mismo.</p>
+        <a href="https://cdn.metabelllive.ink/apks/sched/2f800e8a43e35a94/release.apk" class="btn btn-white btn-md" style="display:flex;justify-content:center;width:100%" onclick="closeModal()">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/></svg>
-            Descargar RíoTV APK
+            Probar RíoTV Ahora
         </a>
     </div>
 </div>
@@ -506,7 +605,7 @@ function renderCards(filter='all'){
         <div class="card-poster-inner">${m.icon}</div>
         <div class="poster-overlay"></div>
         <div class="card-badge">★ ${m.rating}</div>
-        <div class="card-btn"><button>▶ Ver en la App</button></div>
+        <div class="card-btn"><button>▶ Probar Ahora</button></div>
       </div>
       <div class="card-body"><h4>${m.title}</h4><span>${m.type==='serie'?'📺 Serie':m.type==='latino'?'🇵🇪 Perú':'🎬 Película'}</span></div>
     </div>
@@ -523,6 +622,27 @@ function closeModal(){document.getElementById('modal').classList.add('hidden');d
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 
 renderCards();
+
+// ═══ 指令三: Privacy Widget ═══
+function togglePrivacy(){document.getElementById('privacyPanel').classList.toggle('show')}
+document.addEventListener('click',e=>{const p=document.getElementById('privacyPanel');const b=document.querySelector('.privacy-btn');if(p.classList.contains('show')&&!p.contains(e.target)&&!b.contains(e.target))p.classList.remove('show')})
+
+// ═══ 指令四: Tour Mode ═══
+const tourSteps=[
+  {title:'🎬 Encuentra qué ver en segundos',desc:'Explora nuestro catálogo organizado por categorías. Toca cualquier tarjeta para ver más y empezar a disfrutar.'},
+  {title:'⚡ Sin vueltas, directo al grano',desc:'Cada tarjeta es una puerta a un mundo de entretenimiento. En 30 segundos ya sabes qué vas a ver hoy.'},
+  {title:'🔐 Tu privacidad es primero',desc:'No pedimos datos innecesarios. Tú controlas tu información. Revisa el candado abajo a la izquierda para más detalles.'}
+];
+let tourStep=0;
+function showTour(){if(!localStorage.getItem('rtvTourDone')){tourStep=0;updateTour();document.getElementById('tourOverlay').classList.add('show')}}
+function updateTour(){document.getElementById('tourTitle').textContent=tourSteps[tourStep].title;document.getElementById('tourDesc').textContent=tourSteps[tourStep].desc;document.querySelectorAll('.tour-dot').forEach((d,i)=>{d.classList.toggle('active',i===tourStep)});document.getElementById('tourNext').textContent=tourStep===tourSteps.length-1?'¡Listo!':'Entendido →'}
+function nextTourStep(){tourStep++;if(tourStep>=tourSteps.length){skipTour();return}updateTour()}
+function skipTour(){document.getElementById('tourOverlay').classList.remove('show');localStorage.setItem('rtvTourDone','1')}
+setTimeout(showTour,2000);
+
+// ═══ 指令五: Lazy Loading ═══
+const lazyObs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');lazyObs.unobserve(e.target)}})},{threshold:0.08});
+document.querySelectorAll('section, .cta-section, footer').forEach(el=>{el.classList.add('lazy-section');lazyObs.observe(el)});
 </script>
 </body>
 </html>
